@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<language description="English" ietf="en-US" version="0.8.1">
+	<resources>
+    <resource name="label_DefaultSize">
+      Default size
+    </resource>
+
+    <resource name="InvalidCredentials">
+			Invalid credentials.Open setting screen for change.
+		</resource>
+		<resource name="UsernameNotSet">
+			Please authenticate application with Picasa.Open setting screen.
+		</resource>
+		<resource name="label_Username">
+			Username
+		</resource>
+		<resource name="label_Password">
+		 Password
+		</resource>
+		<resource name="label_AfterUploadLinkToClipBoard">
+		 Link to clipboard
+		</resource>
+		<resource name="label_AfterUploadOpenHistory">
+		 Open history
+		</resource>
+		<resource name="label_AfterUpload">
+		After upload
+		</resource>
+		<resource name="Upload">
+			Upload
+		</resource>
+		<resource name="History">
+			History
+		</resource>
+		<resource name="Configure">
+			Configure
+		</resource>
+		<resource name="upload_menu_item">
+		Upload to Picasa
+	</resource>
+	<resource name="settings_title">
+		Picasa settings
+	</resource>
+		<resource name="OK">
+		OK
+	</resource>
+		<resource name="CANCEL">
+		Cancel
+	</resource>
+		<resource name="upload_success">
+		Successfully uploaded image to Picasa!
+	</resource>
+		<resource name="upload_failure">
+		An error occured while uploading to Picasa:
+	</resource>
+		<resource name="label_upload_format">
+			Image format
+	</resource>
+		<resource name="communication_wait">
+			Communicating with Picasa. Please wait...
+	</resource>
+	<resource name="delete_question">
+			Are you sure you want to delete the image {0} from Picasa?
+		</resource>
+	<resource name="delete_title">
+			Delete Picasa {0}
+		</resource>
+	</resources>
+</language>
