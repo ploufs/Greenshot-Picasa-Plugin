@@ -22,7 +22,9 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 
+using Greenshot.Plugin;
 using GreenshotPicasaPlugin.Forms;
+using GreenshotPlugin.Controls;
 using GreenshotPlugin.Core;
 
 namespace GreenshotPicasaPlugin {

@@ -75,7 +75,7 @@
     <Reference Include="Google.GData.Photos, Version=1.9.0.0, Culture=neutral, PublicKeyToken=a25b50f2e8e3887a, processorArchitecture=MSIL">
       <HintPath>..\Greenshot\Lib\Google.GData.Photos.dll</HintPath>
     </Reference>
-    <Reference Include="GreenshotPlugin, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86" />
+    <Reference Include="GreenshotPlugin, Version=0.9.0.0, Culture=neutral, processorArchitecture=x86" />
     <Reference Include="log4net">
       <HintPath>..\Greenshot\Lib\log4net.dll</HintPath>
     </Reference>
@@ -102,6 +102,7 @@
     <Compile Include="Language.cs" />
     <Compile Include="LanguageKeys.cs" />
     <Compile Include="PicasaConfiguration.cs" />
+    <Compile Include="PicasaDestination.cs" />
     <Compile Include="PicasaInfo.cs" />
     <Compile Include="PicasaPlugin.cs" />
     <Compile Include="PicasaUtils.cs" />

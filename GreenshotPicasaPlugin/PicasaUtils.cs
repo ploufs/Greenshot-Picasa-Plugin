@@ -35,6 +35,7 @@ using Google.GData.Client;
 using Google.GData.Extensions;
 using Google.GData.Extensions.Location;
 using Google.Picasa;
+using IniFile;
 
 namespace GreenshotPicasaPlugin {
 	/// <summary>
