@@ -48,8 +48,7 @@ namespace GreenshotPicasaPlugin
         private ILanguage lang = Language.GetInstance();
         private IGreenshotHost host;
         private ComponentResourceManager resources;
-        private ToolStripMenuItem historyMenuItem = null;
-
+      
         public PicasaPlugin()
         {
         }
@@ -80,25 +79,12 @@ namespace GreenshotPicasaPlugin
             config = IniConfig.GetIniSection<PicasaConfiguration>();
             resources = new ComponentResourceManager(typeof(PicasaPlugin));
 
-            historyMenuItem = new ToolStripMenuItem();
-            historyMenuItem.Text = lang.GetString(LangKey.History);
-            historyMenuItem.Click += new System.EventHandler(HistoryMenuClick);
-            historyMenuItem.Image = (Image)resources.GetObject("picasa");
-            historyMenuItem.Enabled = false;
-            PluginUtils.AddToContextMenu(host, historyMenuItem);
-
             ToolStripMenuItem itemPlugInRoot = new ToolStripMenuItem();
             itemPlugInRoot.Text = "Picasa";
             itemPlugInRoot.Tag = host;
             itemPlugInRoot.Image = (Image)resources.GetObject("Picasa");
 
-            ToolStripMenuItem itemPlugInUplaoad = new ToolStripMenuItem();
-            itemPlugInUplaoad.Text = lang.GetString(LangKey.Upload);
-            itemPlugInUplaoad.Tag = host;
-            itemPlugInUplaoad.Click += new System.EventHandler(EditMenuClick);
-            itemPlugInRoot.DropDownItems.Add(itemPlugInUplaoad);
-
-            ToolStripMenuItem itemPlugInHistory = new ToolStripMenuItem();
+             ToolStripMenuItem itemPlugInHistory = new ToolStripMenuItem();
             itemPlugInHistory.Text = lang.GetString(LangKey.History);
             itemPlugInHistory.Tag = host;
             itemPlugInHistory.Click += new System.EventHandler(HistoryMenuClick);
@@ -110,7 +96,7 @@ namespace GreenshotPicasaPlugin
             itemPlugInConfig.Click += new System.EventHandler(ConfigMenuClick);
             itemPlugInRoot.DropDownItems.Add(itemPlugInConfig);
 
-            //PluginUtils.AddToPluginMenu(host.i, itemPlugInRoot);
+            PluginUtils.AddToContextMenu(host, itemPlugInRoot);
             
             return true;
         }
@@ -212,77 +198,5 @@ namespace GreenshotPicasaPlugin
             return false;
         }
 
-
-        /// <summary>
-        /// This will be called when the menu item in the Editor is clicked
-        /// </summary>
-        public void EditMenuClick(object sender, EventArgs eventArgs)
-        {
-            if (string.IsNullOrEmpty(config.Username))
-            {
-                MessageBox.Show(lang.GetString(LangKey.UsernameNotSet), string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                ToolStripMenuItem item = (ToolStripMenuItem)sender;
-                IImageEditor imageEditor = (IImageEditor)item.Tag;
-                using (MemoryStream stream = new MemoryStream())
-                {
-                    BackgroundForm backgroundForm = BackgroundForm.ShowAndWait(Attributes.Name, lang.GetString(LangKey.communication_wait));
-
-                    imageEditor.SaveToStream(stream, config.UploadFormat, config.UploadJpegQuality);
-                    byte[] buffer = stream.GetBuffer();
-                    try
-                    {
-                        string contentType = "image/" + config.UploadFormat.ToString();
-                        string filename = Path.GetFileName(host.GetFilename(config.UploadFormat, imageEditor.CaptureDetails));
-                        PicasaInfo PicasaInfo = PicasaUtils.UploadToPicasa(buffer, imageEditor.CaptureDetails.Title, filename, contentType);
-
-                        if (config.PicasaUploadHistory == null)
-                        {
-                            config.PicasaUploadHistory = new Dictionary<string, string>();
-                        }
-
-                        if (PicasaInfo.ID != null)
-                        {
-                            LOG.InfoFormat("Storing Picasa upload for id {0}", PicasaInfo.ID);
-
-                            config.PicasaUploadHistory.Add(PicasaInfo.ID, PicasaInfo.ID);
-                            config.runtimePicasaHistory.Add(PicasaInfo.ID, PicasaInfo);
-                        }
-
-                        PicasaInfo.Image = PicasaUtils.CreateThumbnail(imageEditor.GetImageForExport(), 90, 90);
-                        // Make sure the configuration is save, so we don't lose the deleteHash
-                        IniConfig.Save();
-                        // Make sure the history is loaded, will be done only once
-                        PicasaUtils.LoadHistory();
-
-                        // Show
-                        if (config.AfterUploadOpenHistory)
-                        {
-                            PicasaHistory.ShowHistory();
-                        }
-
-                        if (config.AfterUploadLinkToClipBoard)
-                        {
-                            Clipboard.SetText(PicasaInfo.LinkUrl(config.PictureDisplaySize));
-                        }
-
-                    }
-                    catch (Google.GData.Client.InvalidCredentialsException eLo)
-                    {
-                     MessageBox.Show(lang.GetString(LangKey.InvalidCredentials));
-                    }
-                    catch (Exception e)
-                    {
-                        MessageBox.Show(lang.GetString(LangKey.upload_failure) + " " + e.ToString());
-                    }
-                    finally
-                    {
-                        backgroundForm.CloseDialog();
-                    }
-                }
-            }
-        }
     }
 }
