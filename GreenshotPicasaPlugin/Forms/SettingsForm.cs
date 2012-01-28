@@ -87,7 +87,7 @@ namespace GreenshotPicasaPlugin {
 		}
 
 
-		public string DefaultSize
+		public string PictureDefaultSize
 		{
 			get { return comboBox_DefaultSize.Text; }
 			set { comboBox_DefaultSize.Text = value; }

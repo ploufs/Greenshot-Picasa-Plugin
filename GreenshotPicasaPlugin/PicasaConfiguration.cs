@@ -98,7 +98,7 @@ namespace GreenshotPicasaPlugin {
 			settingsForm.AfterUploadLinkToClipBoard  = this.AfterUploadLinkToClipBoard;
 			settingsForm.Username = this.Username;
 			settingsForm.Password = this.Password;
-			settingsForm.DefaultSize = this.PictureDisplaySize.ToString();
+			settingsForm.PictureDefaultSize = this.PictureDisplaySize.ToString();
 			DialogResult result = settingsForm.ShowDialog();
 			if (result == DialogResult.OK)
 			{
@@ -110,7 +110,7 @@ namespace GreenshotPicasaPlugin {
 
 				this.Username=settingsForm.Username;
 				this.Password=settingsForm.Password;
-				this.PictureDisplaySize = (PictureDisplaySize)Enum.Parse(typeof(PictureDisplaySize), settingsForm.DefaultSize);
+				this.PictureDisplaySize = (PictureDisplaySize)Enum.Parse(typeof(PictureDisplaySize), settingsForm.PictureDefaultSize);
 
 				IniConfig.Save();
 				return true;
